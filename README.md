@@ -1,165 +1,229 @@
-# AI列内容生成器
+# LocalAItable
 
-这是一个基于Python的GUI应用程序，可以使用AI大模型（如GPT-3.5、GPT-4，或本地Ollama模型如DeepSeek-r1）根据Excel或CSV文件中的指定列内容生成新内容并填充到目标列中。
+<div align="right">
+  <a href="#chinese">中文</a> | <a href="#english">English</a>
+</div>
 
-## 功能特性
+---
 
-- 支持读取Excel和CSV格式的文件
-- 可自由选择一个或多个引用列作为AI生成内容的输入
-- 可选择目标列作为AI生成内容的输出位置
-- **提供完整的提示语模板管理系统**，支持创建、保存、导入、导出和分享模板
-- 支持预览生成结果
-- 支持批量处理所有数据行
-- 可将处理后的结果导出为Excel或CSV文件
-- **自动检测CSV文件编码**，支持常见中文编码（UTF-8、GBK等）
-- 提供手动指定文件编码功能，解决乱码问题
-- **支持本地部署的Ollama大模型**，包括DeepSeek-r1:14b，无需OpenAI API密钥
-- **支持多线程批处理**，大幅提升处理速度
+<a name="chinese"></a>
+# LocalAItable - 本地AI表格处理工具
 
-## 安装步骤
+LocalAItable是一个强大的本地化AI表格处理工具，允许您通过本地大模型或云端API批量处理Excel/CSV表格数据，实现类似"多维表格"的智能化数据处理能力。
 
-1. 确保已安装Python 3.8或更高版本
-2. 克隆或下载此仓库到本地
-3. 安装所需依赖：
+![项目标识](https://via.placeholder.com/800x400?text=LocalAItable)
 
+## 🌟 项目特点
+
+- **双模式AI支持**：同时支持OpenAI API和本地部署的Ollama模型
+- **表格数据处理**：轻松导入/导出Excel和CSV文件，自动检测文件编码
+- **批量AI生成**：为表格中的数据批量生成AI内容，支持多线程并行处理
+- **模板系统**：强大的提示词模板管理，支持变量替换和条件逻辑
+- **友好界面**：直观的图形用户界面，无需编程经验即可操作
+- **完全本地化**：使用本地模型时，所有数据处理均在本地完成，保护数据隐私
+
+## 🚀 应用场景
+
+- **文本摘要生成**：批量将长文本内容转化为简洁摘要
+- **数据提取与解析**：从非结构化文本中提取结构化数据(如血压、日期等)
+- **内容翻译**：批量翻译表格中的文本内容
+- **情感分析与分类**：分析文本情感倾向或进行内容分类
+- **关键词提取**：从大量文本中提取关键词和核心概念
+- **医疗数据处理**：提取和整理医疗记录中的关键数据
+
+## 📋 系统要求
+
+- Python 3.8或更高版本
+- 本地运行Ollama模型推荐8GB以上内存
+- 支持Windows、macOS和Linux系统
+
+## 🔧 安装指南
+
+1. 克隆仓库到本地
+```bash
+git clone https://github.com/yourusername/LocalAItable.git
+cd LocalAItable
+```
+
+2. 安装依赖包
 ```bash
 pip install -r requirements.txt
 ```
 
-4. (可选) 如果要使用Ollama本地模型，请安装Ollama：
-   - 访问 [Ollama官方网站](https://ollama.com/) 下载安装
-   - 安装完成后，运行 `ollama pull deepseek-r1:14b` 或其他模型，如:
-     ```bash
-     ollama pull deepseek-r1:14b  # 推荐中文模型
-     ollama pull llama3  # 或其他模型
-     ```
+3. (可选) 设置OpenAI API密钥
+   - 在程序界面中设置
+   - 或设置环境变量 `OPENAI_API_KEY`
 
-## 使用方法
+4. (可选) 安装并配置Ollama
+   - 从[Ollama官网](https://ollama.ai/)下载并安装
+   - 下载所需模型，如 `ollama pull deepseek-r1:14b`
 
-1. 运行程序：
+## 📊 使用方法
 
+1. 运行应用程序
 ```bash
 python ai_column_generator.py
 ```
 
-2. 在程序界面中依次完成以下操作：
-   - 选择AI服务类型：OpenAI API或本地Ollama
-   - 如选择OpenAI，输入API密钥；如选择Ollama，确认URL（默认为http://localhost:11434）
-   - 选择要使用的AI模型（如使用Ollama，推荐选择deepseek-r1:14b模型处理中文内容）
-   - 点击"选择Excel/CSV文件"按钮加载数据文件
-   - 如果CSV文件有编码问题，可使用"手动指定编码打开"功能
-   - 选择要写入AI生成内容的目标列（可以选择"新建列"创建新列）
-   - 选择一个或多个作为AI输入的引用列
-   - 使用提供的预设模板或创建自定义模板
-   - 点击"预览"按钮测试单行效果
-   - 确认效果满意后，点击"生成并更新"按钮处理所有数据
-   - 处理完成后，点击"导出文件"按钮保存结果
+2. 导入数据
+   - 点击"选择Excel/CSV文件"按钮
+   - 如遇编码问题，可使用"手动指定编码打开"功能
 
-## 提示语模板管理系统
+3. 配置AI
+   - 选择API类型(OpenAI或Ollama)
+   - 配置相应API密钥或URL地址
+   - 选择合适的AI模型
 
-本应用提供完整的提示语模板管理功能，让您能快速创建、使用和分享高效的提示语：
+4. 选择处理列
+   - 指定要处理的表格列(引用列)
+   - 指定AI生成内容的保存列(目标列)
 
-1. **预设模板**：系统内置多种常用场景的模板，如摘要生成、内容翻译、情感分析等
-2. **自定义模板**：创建、保存和管理您自己的模板，并添加描述说明
-3. **模板变量**：使用智能变量替换功能，如`{引用内容}`，实现模板的灵活应用
-4. **模板预览**：使用预览功能测试模板变量替换效果
-5. **模板导入导出**：通过JSON格式导入导出模板，方便团队共享使用
+5. 设置提示词
+   - 使用内置模板或创建自定义模板
+   - 支持变量替换和条件逻辑
 
-### 模板变量语法
+6. 生成内容
+   - 点击"预览"按钮测试效果
+   - 点击"生成并更新"按钮批量处理
+   - 处理完成后，可导出更新后的表格文件
 
-在创建提示词模板时，可以使用以下变量语法：
+## 📝 模板示例
 
-1. **基本变量**：使用 `{变量名}` 引用变量，例如：
-   - `{引用内容}` - 会被替换为选中引用列的内容
-
-2. **条件变量**：使用 `{如果:变量名:内容}` 创建条件块，例如：
-   - `{如果:引用内容:请分析以下内容: {引用内容}}`
-   - 当变量有值时才会显示条件块内容
-
-### 模板使用示例
-
+基础模板示例：
 ```
 请根据以下内容生成一段简洁的摘要：
 
 {引用内容}
-
-要求：
-1. 保留原文的关键信息
-2. 摘要不超过100字
-3. 使用简洁明了的语言
 ```
 
-## Ollama本地模型
+条件逻辑模板：
+```
+请分析以下内容，{如果:关键词:重点关注这些关键词: {关键词}
+}
 
-1. **为什么使用Ollama?**
-   - 无需API密钥和费用
-   - 数据隐私保护，所有处理在本地完成
-   - 可离线使用，不依赖互联网连接
-   - 支持多种开源大语言模型
-
-2. **设置Ollama:**
-   - 在软件中选择"AI服务类型"为"ollama"
-   - 默认URL为http://localhost:11434，如有修改请更新
-   - 点击"获取模型列表"按钮查看可用模型
-   - 如果模型列表为空，请确保已通过Ollama CLI安装模型，例如：
-     ```bash
-     # 安装DeepSeek Coder R1（擅长中文处理）
-     ollama pull deepseek-r1:14b
-     
-     # 或安装其他模型
-     ollama pull llama3
-     ollama pull mistral
-     ```
-
-3. **推荐的中文模型**
-   - **DeepSeek-r1:14b**: 性能优秀的中文大模型，对中文内容理解和生成效果较好
-   - Qwen: 通义千问模型，中文能力强
-   - Yi: 01.AI的开源大模型，中文支持良好
-   - Baichuan2: 百川智能的开源模型，针对中文优化
-
-4. **运行Ollama模型**
-   ```bash
-   # 在命令行测试模型
-   ollama run deepseek-r1:14b
-   ```
-
-## CSV文件编码问题
-
-如果遇到CSV文件编码问题（如显示乱码），可以：
-
-1. 使用"手动指定编码打开"功能，选择合适的编码（如GBK、UTF-8等）
-2. 使用"编码问题帮助"按钮查看详细的编码问题解决方案
-3. 导出CSV时可以选择合适的编码，解决与其他软件的兼容性问题
-
-## 注意事项
-
-- 使用OpenAI API时请确保您有足够的API使用额度
-- 使用Ollama时请确保已正确安装并运行Ollama服务
-- 使用DeepSeek-r1:14b等大型模型时，请确保您的电脑有足够的内存和性能
-- 对于大量数据，处理可能需要较长时间，请耐心等待
-- 可以通过调整批处理大小和线程数来优化处理速度
-
-## 配置文件
-
-程序配置保存在`config.ini`文件中，格式为：
-
-```ini
-[API]
-openai_api_key = your_api_key_here
-ollama_url = http://localhost:11434
-api_type = openai  # 或 ollama
+{引用内容}
 ```
 
-用户模板保存在`prompt_templates.json`文件中。
+## 📜 许可证
 
-## 依赖项
+本项目基于MIT许可证开源 - 详见 [LICENSE](LICENSE) 文件
 
-- pandas: 数据处理
-- openpyxl: Excel文件支持
-- openai: OpenAI API调用
-- chardet: CSV文件编码自动检测
-- requests: HTTP请求（用于Ollama API）
+## 🤝 贡献
 
-## 许可证
+欢迎提交问题和功能建议！如果您想贡献代码，请先fork仓库并创建拉取请求。
 
-MIT 
+## 📞 联系方式
+
+如有问题或建议，请通过GitHub Issues与我们联系。
+
+---
+
+<a name="english"></a>
+# LocalAItable - Local AI Spreadsheet Processor
+
+LocalAItable is a powerful local AI spreadsheet processing tool that allows you to batch process Excel/CSV spreadsheet data through local large language models or cloud APIs, achieving intelligent data processing capabilities similar to "multi-dimensional tables".
+
+![Project Logo](https://via.placeholder.com/800x400?text=LocalAItable)
+
+## 🌟 Features
+
+- **Dual AI Support**: Supports both OpenAI API and locally deployed Ollama models
+- **Spreadsheet Processing**: Easily import/export Excel and CSV files with automatic encoding detection
+- **Batch AI Generation**: Generate AI content for spreadsheet data in batch with multi-threading support
+- **Template System**: Powerful prompt template management with variable substitution and conditional logic
+- **User-Friendly Interface**: Intuitive graphical user interface requiring no programming experience
+- **Fully Localized**: When using local models, all data processing is done locally to protect data privacy
+
+## 🚀 Use Cases
+
+- **Text Summarization**: Batch convert long text content into concise summaries
+- **Data Extraction & Parsing**: Extract structured data from unstructured text (e.g., blood pressure, dates)
+- **Content Translation**: Batch translate text content in spreadsheets
+- **Sentiment Analysis & Classification**: Analyze text sentiment or classify content
+- **Keyword Extraction**: Extract keywords and core concepts from large volumes of text
+- **Medical Data Processing**: Extract and organize key data from medical records
+
+## 📋 System Requirements
+
+- Python 3.8 or higher
+- 8GB+ RAM recommended for running Ollama models locally
+- Supports Windows, macOS, and Linux systems
+
+## 🔧 Installation Guide
+
+1. Clone the repository
+```bash
+git clone https://github.com/yourusername/LocalAItable.git
+cd LocalAItable
+```
+
+2. Install dependencies
+```bash
+pip install -r requirements.txt
+```
+
+3. (Optional) Set up OpenAI API key
+   - Configure in the program interface
+   - Or set the environment variable `OPENAI_API_KEY`
+
+4. (Optional) Install and configure Ollama
+   - Download and install from [Ollama website](https://ollama.ai/)
+   - Download required models, e.g., `ollama pull deepseek-r1:14b`
+
+## 📊 How to Use
+
+1. Run the application
+```bash
+python ai_column_generator.py
+```
+
+2. Import data
+   - Click the "Select Excel/CSV File" button
+   - For encoding issues, use the "Open with Manual Encoding" feature
+
+3. Configure AI
+   - Select API type (OpenAI or Ollama)
+   - Configure corresponding API key or URL
+   - Choose an appropriate AI model
+
+4. Select processing columns
+   - Specify the spreadsheet columns to process (reference columns)
+   - Specify the column to save AI-generated content (target column)
+
+5. Set up prompts
+   - Use built-in templates or create custom templates
+   - Support variable substitution and conditional logic
+
+6. Generate content
+   - Click the "Preview" button to test the effect
+   - Click "Generate and Update" for batch processing
+   - After processing, export the updated spreadsheet file
+
+## 📝 Template Examples
+
+Basic template example:
+```
+Please generate a concise summary based on the following content:
+
+{引用内容}
+```
+
+Conditional logic template:
+```
+Please analyze the following content, {如果:关键词:with special attention to these keywords: {关键词}
+}
+
+{引用内容}
+```
+
+## 📜 License
+
+This project is open-sourced under the MIT License - see the [LICENSE](LICENSE) file for details
+
+## 🤝 Contribution
+
+Issues and feature suggestions are welcome! If you'd like to contribute code, please fork the repository and create a pull request.
+
+## 📞 Contact
+
+For questions or suggestions, please contact us through GitHub Issues. 
