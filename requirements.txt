@@ -1,0 +1,16 @@
+# 数据处理
+pandas>=1.3.0
+openpyxl>=3.0.9
+
+# API调用
+openai>=1.0.0
+requests>=2.28.0
+
+# 文件处理
+chardet>=4.0.0
+
+# GUI (tkinter通常作为Python标准库的一部分，不需要单独安装)
+# 但对于特定环境可能需要以下包
+# python-tk>=3.8.0  # 在某些Linux发行版中需要单独安装
+
+# 多线程支持已内置于Python标准库 
