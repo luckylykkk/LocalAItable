@@ -149,7 +149,7 @@ class TemplatePreviewDialog:
 class AIColumnGenerator:
     def __init__(self, root):
         self.root = root
-        self.root.title("AI列内容生成器")
+        self.root.title("LocalAItable")
         self.root.geometry("900x750")  # 增加窗口高度
         
         self.file_path = None
@@ -242,7 +242,7 @@ class AIColumnGenerator:
     def create_widgets(self):
         """创建GUI组件"""
         # 创建状态栏（放在最底部且不会滚动）
-        self.status_var = tk.StringVar(value="就绪 - 可使用鼠标滚轮上下滚动查看所有内容")
+        self.status_var = tk.StringVar(value="本项目由华中科技大学同济医院影像科刘远康博士独立开发，免费开源。如有定制化或其他商业需求请加微信Blackbirdflyinthesky")
         self.status_bar = ttk.Label(self.root, textvariable=self.status_var, relief=tk.SUNKEN, anchor=tk.W)
         self.status_bar.pack(side=tk.BOTTOM, fill=tk.X)
         
